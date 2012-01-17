@@ -24,6 +24,7 @@ Yii-PDF Extension
 
 ### Установка
 
+* Скачайте и распакуйте расширение в директорию `protected/extensions/yii-pdf`
 * Скачайте и распакуйте библиотеку (mPDF и/или HTML2PDF) в свою папку каталога `protected/vendors`
 или укажите новое значение для параметра `'librarySourcePath'` в массиве `'params'`
 * Массив `'defaultParams'` - это массив параметров по умолчанию для конструктора соответствующей библиотеки.
@@ -85,6 +86,9 @@ Yii-PDF Extension
     {
         # mPDF
         $mPDF1 = Yii::app()->ePdf->mPDF();
+
+        # Вы можете с легкостью переопределить параметр по умолчанию для конструктора
+        $mPDF1 = Yii::app()->ePdf->mPDF('', 'A5');
 
         # render (полная страница page)
         $mPDF1->WriteHTML($this->render('index', array(), true));

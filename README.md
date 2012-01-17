@@ -23,6 +23,7 @@ It can convert valid HTML and xHTML to PDF
 
 ### Installation
 
+* Download and extract extension to the directory `protected/extensions/yii-pdf`
 * Download and extract library (mPDF and/or HTML2PDF) to own directory in catalog `protected/vendors`
 or set new value for `'librarySourcePath'` parameter in `'params'` array
 * Array `'defaultParams'` - this is an array of default params for constructor of specified library.
@@ -84,6 +85,9 @@ or set new value for `'librarySourcePath'` parameter in `'params'` array
     {
         # mPDF
         $mPDF1 = Yii::app()->ePdf->mPDF();
+
+        # You can easily override default constructor params
+        $mPDF1 = Yii::app()->ePdf->mPDF('', 'A5');
 
         # render (full page)
         $mPDF1->WriteHTML($this->render('index', array(), true));
