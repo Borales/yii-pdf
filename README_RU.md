@@ -1,33 +1,34 @@
 Yii-PDF Extension
 =================
 
-Small Yii extension, that wraps a few PHP libraries (mPDF and HTML2PDF so far) to convert HTML to PDF
+Небольшое расширение для Yii Framework, которое делает "обертку" для нескольких PHP-библиотек
+(mPDF и HTML2PDF на данный момент) для конвертации HTML в PDF
 
-### Resources
+### Ссылки
 
 * [Yii Framework](http://yiiframework.com/)
-* [mPDF](http://www.mpdf1.com/) - is a PHP class to generate PDF files from HTML with Unicode/UTF-8 and CJK support
-* [HTML2PDF](http://html2pdf.fr/en/default) - is a PHP class using FPDF for the PHP4 release, and TCPDF for the PHP5 release.
-It can convert valid HTML and xHTML to PDF
+* [mPDF](http://www.mpdf1.com/) - это PHP класс для создания PDF файлов из HTML с поддержкой Unicode/UTF-8 и CJK
+* [HTML2PDF](http://html2pdf.fr/en/default) - это PHP класс, который использует FPDF для PHP4, и TCPDF для PHP5.
+Библиотека может конвертировать валидный HTML и XHTML в PDF
 
-### Requirements
+### Системные требования
 
-* Yii 1.1.9 or above
-* [mPDF](http://www.mpdf1.com/mpdf/download) version 5.3 (has been released 2011-07-21) or above
-* [HTML2PDF](http://sourceforge.net/projects/phphtml2pdf/) version 4.03 (has been released 2011-05-27) or above
+* Yii 1.1.9 или выше
+* [mPDF](http://www.mpdf1.com/mpdf/download) версия 5.3 (была выпущена 2011-07-21) или выше
+* [HTML2PDF](http://sourceforge.net/projects/phphtml2pdf/) версия 4.03 (была выпущена 2011-05-27) или выше
 
-### Official documentation and examples
+### Официальная документация и примеры
 
-* mPDF - [manual](http://mpdf1.com/manual/) and [examples](http://www.mpdf1.com/mpdf/examples)
-* HTML2PDF - [Wiki](http://wiki.spipu.net/doku.php?id=html2pdf:en:Accueil) and [examples](http://html2pdf.fr/en/example)
+* mPDF - [manual](http://mpdf1.com/manual/) и [примеры](http://www.mpdf1.com/mpdf/examples)
+* HTML2PDF - [Wiki](http://wiki.spipu.net/doku.php?id=html2pdf:en:Accueil) и [примеры](http://html2pdf.fr/en/example)
 
-### Installation
+### Установка
 
-* Download and extract library (mPDF and/or HTML2PDF) to own directory in catalog `protected/vendors`
-or set new value for `'librarySourcePath'` parameter in `'params'` array
-* Array `'defaultParams'` - this is an array of default params for constructor of specified library.
-**Don't change the order of array items.**
-* In your `protected/config/main.php`, add the following:
+* Скачайте и распакуйте библиотеку (mPDF и/или HTML2PDF) в свою папку каталога `protected/vendors`
+или укажите новое значение для параметра `'librarySourcePath'` в массиве `'params'`
+* Массив `'defaultParams'` - это массив параметров по умолчанию для конструктора соответствующей библиотеки.
+**Не изменять порядок элементов массива.**
+* В вашем конфигурационным файле `protected/config/main.php`, добавьте такие строчки:
 
 ```php
 <?php
@@ -42,7 +43,7 @@ or set new value for `'librarySourcePath'` parameter in `'params'` array
                     'constants'         => array(
                         '_MPDF_TEMP_PATH' => Yii::getPathOfAlias('application.runtime'),
                     ),
-                    'defaultParams'     => array( // More detailed info: http://mpdf1.com/manual/index.php?tid=184
+                    'defaultParams'     => array( // Более детально: http://mpdf1.com/manual/index.php?tid=184
                         'mode'              => '', //  This parameter specifies the mode of the new document.
                         'format'            => 'A4', // format A4, A5, ...
                         'default_font_size' => 0, // Sets the default document font size in points (pt)
@@ -59,7 +60,7 @@ or set new value for `'librarySourcePath'` parameter in `'params'` array
                 'HTML2PDF' => array(
                     'librarySourcePath' => 'application.vendors.html2pdf.*',
                     'classFile'         => 'html2pdf.class.php', // For adding to Yii::$classMap
-                    'defaultParams'     => array( // More detailed info: http://wiki.spipu.net/doku.php?id=html2pdf:en:v4:accueil
+                    'defaultParams'     => array( // Более детально: http://wiki.spipu.net/doku.php?id=html2pdf:en:v4:accueil
                         'orientation' => 'P', // landscape or portrait orientation
                         'format'      => 'A4', // format A4, A5, ...
                         'language'    => 'en', // language: fr, en, it ...
@@ -75,7 +76,7 @@ or set new value for `'librarySourcePath'` parameter in `'params'` array
 //...
 ```
 
-### Usage
+### Использование
 
 ```php
 <?php
@@ -85,25 +86,25 @@ or set new value for `'librarySourcePath'` parameter in `'params'` array
         # mPDF
         $mPDF1 = Yii::app()->ePdf->mPDF();
 
-        # render (full page)
+        # render (полная страница page)
         $mPDF1->WriteHTML($this->render('index', array(), true));
 
-        # Load a stylesheet
+        # Загрузить таблицу стилей в документ
         $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
         $mPDF1->WriteHTML($stylesheet, 1);
 
-        # renderPartial (only 'view' of current controller)
+        # renderPartial (только представление текущего контроллера)
         $mPDF1->WriteHTML($this->renderPartial('index', array(), true));
 
-        # Renders image
+        # Отрисовка картинки в документе
         $mPDF1->WriteHTML(CHtml::image(Yii::getPathOfAlias('webroot.css') . '/bg.gif' ));
 
-        # Outputs ready PDF
+        # Вывод готового PDF
         $mPDF1->Output();
 
         ////////////////////////////////////////////////////////////////////////////////////
 
-        # HTML2PDF has very similar syntax
+        # у HTML2PDF очень схож синтаксис
         $html2pdf = Yii::app()->ePdf->HTML2PDF();
         $html2pdf->WriteHTML($this->renderPartial('index', array(), true));
         $html2pdf->Output();
@@ -111,8 +112,8 @@ or set new value for `'librarySourcePath'` parameter in `'params'` array
 ...
 ```
 
-### License
+### Лицензия
 
-* **mPDF** has GNU General Public License version 2
-* **HTML2PDF** has GNU Library or Lesser General Public License (LGPL)
-* [This extension](https://github.com/Borales/yii-pdf) was released under the [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
+* **mPDF** - GNU General Public License version 2
+* **HTML2PDF** - GNU Library or Lesser General Public License (LGPL)
+* [Это расширение](https://github.com/Borales/yii-pdf) было выпущено под [New BSD License](http://www.opensource.org/licenses/bsd-license.php)
