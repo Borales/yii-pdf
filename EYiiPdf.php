@@ -6,10 +6,35 @@
  * @link https://github.com/Borales/yii-pdf
  * @license http://www.opensource.org/licenses/bsd-license.php
  * @package application.extensions.yii-pdf.EYiiPdf
- * @version 0.1
+ * @version 0.2
  */
 class EYiiPdf extends CApplicationComponent
 {
+    /**
+     * Send the PDF document in browser with a specific name. The plug-in is used if available.
+     * The name given by filename is used when one selects the "Save as" option on the link generating the PDF.
+     * @var string
+     */
+    const OUTPUT_TO_BROWSER = "I";
+
+    /**
+     * Forcing the download of PDF via web browser, with a specific name
+     * @var string
+     */
+    const OUTPUT_TO_DOWNLOAD = "D";
+
+    /**
+     * Write the contents of a PDF file on the server
+     * @var string
+     */
+    const OUTPUT_TO_FILE = "F";
+
+    /**
+     * Retrieve the contents of the PDF and then do whatever you want
+     * @var string
+     */
+    const OUTPUT_TO_STRING = "S";
+
     /**
      * @var array Key-value pairs parameters
      */
@@ -33,7 +58,7 @@ class EYiiPdf extends CApplicationComponent
      */
     protected function initLibrary($library_name, $constructorClassArgs = array())
     {
-        if( !isset($this->params[$library_name]) || empty($this->params[$library_name]) )
+        if( !isset($this->params[$library_name]) || !isset($this->params[$library_name]['librarySourcePath']) )
             throw new EYiiPdfException(Yii::t('yii-pdf', 'You must set parameters first'), 500);
 
         # Fix for HTML2PDF - class filename is "html2pdf.class.php"
@@ -48,11 +73,13 @@ class EYiiPdf extends CApplicationComponent
             $this->_importedPaths[$sourcePath] = Yii::import($sourcePath, true);
 
         # Merging params arrays (preserving params' indexes)
-        $args = $constructorClassArgs + array_values($this->params[$library_name]['defaultParams']);
+        $args = isset($this->params[$library_name]['defaultParams'])
+            ? $constructorClassArgs + array_values($this->params[$library_name]['defaultParams'])
+            : array();
 
         $reflClass = isset($this->params[$library_name]['class']) ? $this->params[$library_name]['class'] : $library_name;
 
-        $r = new ReflectionClass( $reflClass );
+        $r = new ReflectionClass($reflClass);
         $this->{"_" . $library_name} = $r->newInstanceArgs($args);
     }
 

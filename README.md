@@ -24,10 +24,11 @@ It can convert valid HTML and xHTML to PDF
 ### Installation
 
 * Download and extract extension to the directory `protected/extensions/yii-pdf`
-* Download and extract library (mPDF and/or HTML2PDF) to own directory in catalog `protected/vendors`
-or set new value for `'librarySourcePath'` parameter in `'params'` array
-* Array `'defaultParams'` - this is an array of default params for constructor of specified library.
-**Don't change the order of array items.**
+* Download and extract library ([mPDF](http://www.mpdf1.com/mpdf/download) and/or [HTML2PDF](http://sourceforge.net/projects/phphtml2pdf/))
+to own directory in catalog `protected/vendors` or set new value for `'librarySourcePath'` parameter in `'params'` array
+* Array `'defaultParams'` - this is an array of constructor's default params of selected library.
+If you want to change default params - you can set them in config file (like shown below).
+If you do so - **you must keep the order of array items!**
 * In your `protected/config/main.php`, add the following:
 
 ```php
@@ -43,7 +44,7 @@ or set new value for `'librarySourcePath'` parameter in `'params'` array
                     'constants'         => array(
                         '_MPDF_TEMP_PATH' => Yii::getPathOfAlias('application.runtime'),
                     ),
-                    'defaultParams'     => array( // More detailed info: http://mpdf1.com/manual/index.php?tid=184
+                    /*'defaultParams'     => array( // More info: http://mpdf1.com/manual/index.php?tid=184
                         'mode'              => '', //  This parameter specifies the mode of the new document.
                         'format'            => 'A4', // format A4, A5, ...
                         'default_font_size' => 0, // Sets the default document font size in points (pt)
@@ -55,19 +56,19 @@ or set new value for `'librarySourcePath'` parameter in `'params'` array
                         'mgh'               => 9, // margin_header
                         'mgf'               => 9, // margin_footer
                         'orientation'       => 'P', // landscape or portrait orientation
-                    )
+                    )*/
                 ),
                 'HTML2PDF' => array(
                     'librarySourcePath' => 'application.vendors.html2pdf.*',
                     'classFile'         => 'html2pdf.class.php', // For adding to Yii::$classMap
-                    'defaultParams'     => array( // More detailed info: http://wiki.spipu.net/doku.php?id=html2pdf:en:v4:accueil
+                    /*'defaultParams'     => array( // More info: http://wiki.spipu.net/doku.php?id=html2pdf:en:v4:accueil
                         'orientation' => 'P', // landscape or portrait orientation
                         'format'      => 'A4', // format A4, A5, ...
                         'language'    => 'en', // language: fr, en, it ...
                         'unicode'     => true, // TRUE means clustering the input text IS unicode (default = true)
                         'encoding'    => 'UTF-8', // charset encoding; Default is UTF-8
                         'marges'      => array(5, 5, 5, 8), // margins by default, in order (left, top, right, bottom)
-                    )
+                    )*/
                 )
             ),
         ),
@@ -86,7 +87,7 @@ or set new value for `'librarySourcePath'` parameter in `'params'` array
         # mPDF
         $mPDF1 = Yii::app()->ePdf->mPDF();
 
-        # You can easily override default constructor params
+        # You can easily override default constructor's params
         $mPDF1 = Yii::app()->ePdf->mPDF('', 'A5');
 
         # render (full page)
@@ -111,6 +112,19 @@ or set new value for `'librarySourcePath'` parameter in `'params'` array
         $html2pdf = Yii::app()->ePdf->HTML2PDF();
         $html2pdf->WriteHTML($this->renderPartial('index', array(), true));
         $html2pdf->Output();
+
+        ////////////////////////////////////////////////////////////////////////////////////
+
+        # Example from HTML2PDF wiki: Send PDF by email
+        $content_PDF = $html2pdf->Output('', EYiiPdf::OUTPUT_TO_STRING);
+        require_once(dirname(__FILE__).'/pjmail/pjmail.class.php');
+        $mail = new PJmail();
+        $mail->setAllFrom('webmaster@my_site.net', "My personal site");
+        $mail->addrecipient('mail_user@my_site.net');
+        $mail->addsubject("Example sending PDF");
+        $mail->text = "This is an example of sending a PDF file";
+        $mail->addbinattachement("my_document.pdf", $content_PDF);
+        $res = $mail->sendmail();
     }
 ...
 ```
