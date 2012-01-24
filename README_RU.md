@@ -45,6 +45,7 @@ Yii-PDF Extension
                     'constants'         => array(
                         '_MPDF_TEMP_PATH' => Yii::getPathOfAlias('application.runtime'),
                     ),
+                    'class'=>'mpdf', // Для некоторых "регистрочувствительных" систем
                     /*'defaultParams'     => array( // Детальней: http://mpdf1.com/manual/index.php?tid=184
                         'mode'              => '', //  This parameter specifies the mode of the new document.
                         'format'            => 'A4', // format A4, A5, ...
