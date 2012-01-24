@@ -34,46 +34,47 @@ If you do so - **you must keep the order of array items!**
 ```php
 <?php
 //...
-    'components'=>array(
-        //...
-        'ePdf' => array(
-            'class'         => 'ext.yii-pdf.EYiiPdf',
-            'params'        => array(
-                'mPDF'     => array(
-                    'librarySourcePath' => 'application.vendors.mpdf.*',
-                    'constants'         => array(
-                        '_MPDF_TEMP_PATH' => Yii::getPathOfAlias('application.runtime'),
-                    ),
-                    /*'defaultParams'     => array( // More info: http://mpdf1.com/manual/index.php?tid=184
-                        'mode'              => '', //  This parameter specifies the mode of the new document.
-                        'format'            => 'A4', // format A4, A5, ...
-                        'default_font_size' => 0, // Sets the default document font size in points (pt)
-                        'default_font'      => '', // Sets the default font-family for the new document.
-                        'mgl'               => 15, // margin_left. Sets the page margins for the new document.
-                        'mgr'               => 15, // margin_right
-                        'mgt'               => 16, // margin_top
-                        'mgb'               => 16, // margin_bottom
-                        'mgh'               => 9, // margin_header
-                        'mgf'               => 9, // margin_footer
-                        'orientation'       => 'P', // landscape or portrait orientation
-                    )*/
-                ),
-                'HTML2PDF' => array(
-                    'librarySourcePath' => 'application.vendors.html2pdf.*',
-                    'classFile'         => 'html2pdf.class.php', // For adding to Yii::$classMap
-                    /*'defaultParams'     => array( // More info: http://wiki.spipu.net/doku.php?id=html2pdf:en:v4:accueil
-                        'orientation' => 'P', // landscape or portrait orientation
-                        'format'      => 'A4', // format A4, A5, ...
-                        'language'    => 'en', // language: fr, en, it ...
-                        'unicode'     => true, // TRUE means clustering the input text IS unicode (default = true)
-                        'encoding'    => 'UTF-8', // charset encoding; Default is UTF-8
-                        'marges'      => array(5, 5, 5, 8), // margins by default, in order (left, top, right, bottom)
-                    )*/
-                )
-            ),
-        ),
-        //...
-    )
+	'components'=>array(
+		//...
+		'ePdf' => array(
+			'class'			=> 'ext.yii-pdf.EYiiPdf',
+			'params'		=> array(
+				'mPDF'	   => array(
+					'librarySourcePath' => 'application.vendors.mpdf.*',
+					'constants'			=> array(
+						'_MPDF_TEMP_PATH' => Yii::getPathOfAlias('application.runtime'),
+					),
+					'class'=>'mpdf', // the literal class filename to be loaded from the vendors folder.
+					/*'defaultParams'	  => array( // More info: http://mpdf1.com/manual/index.php?tid=184
+						'mode'				=> '', //  This parameter specifies the mode of the new document.
+						'format'			=> 'A4', // format A4, A5, ...
+						'default_font_size' => 0, // Sets the default document font size in points (pt)
+						'default_font'		=> '', // Sets the default font-family for the new document.
+						'mgl'				=> 15, // margin_left. Sets the page margins for the new document.
+						'mgr'				=> 15, // margin_right
+						'mgt'				=> 16, // margin_top
+						'mgb'				=> 16, // margin_bottom
+						'mgh'				=> 9, // margin_header
+						'mgf'				=> 9, // margin_footer
+						'orientation'		=> 'P', // landscape or portrait orientation
+					)*/
+				),
+				'HTML2PDF' => array(
+					'librarySourcePath' => 'application.vendors.html2pdf.*',
+					'classFile'			=> 'html2pdf.class.php', // For adding to Yii::$classMap
+					/*'defaultParams'	  => array( // More info: http://wiki.spipu.net/doku.php?id=html2pdf:en:v4:accueil
+						'orientation' => 'P', // landscape or portrait orientation
+						'format'	  => 'A4', // format A4, A5, ...
+						'language'	  => 'en', // language: fr, en, it ...
+						'unicode'	  => true, // TRUE means clustering the input text IS unicode (default = true)
+						'encoding'	  => 'UTF-8', // charset encoding; Default is UTF-8
+						'marges'	  => array(5, 5, 5, 8), // margins by default, in order (left, top, right, bottom)
+					)*/
+				)
+			),
+		),
+		//...
+	)
 //...
 ```
 
@@ -82,50 +83,50 @@ If you do so - **you must keep the order of array items!**
 ```php
 <?php
 ...
-    public function actionIndex()
-    {
-        # mPDF
-        $mPDF1 = Yii::app()->ePdf->mPDF();
+	public function actionIndex()
+	{
+		# mPDF
+		$mPDF1 = Yii::app()->ePdf->mPDF();
 
-        # You can easily override default constructor's params
-        $mPDF1 = Yii::app()->ePdf->mPDF('', 'A5');
+		# You can easily override default constructor's params
+		$mPDF1 = Yii::app()->ePdf->mPDF('', 'A5');
 
-        # render (full page)
-        $mPDF1->WriteHTML($this->render('index', array(), true));
+		# render (full page)
+		$mPDF1->WriteHTML($this->render('index', array(), true));
 
-        # Load a stylesheet
-        $stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
-        $mPDF1->WriteHTML($stylesheet, 1);
+		# Load a stylesheet
+		$stylesheet = file_get_contents(Yii::getPathOfAlias('webroot.css') . '/main.css');
+		$mPDF1->WriteHTML($stylesheet, 1);
 
-        # renderPartial (only 'view' of current controller)
-        $mPDF1->WriteHTML($this->renderPartial('index', array(), true));
+		# renderPartial (only 'view' of current controller)
+		$mPDF1->WriteHTML($this->renderPartial('index', array(), true));
 
-        # Renders image
-        $mPDF1->WriteHTML(CHtml::image(Yii::getPathOfAlias('webroot.css') . '/bg.gif' ));
+		# Renders image
+		$mPDF1->WriteHTML(CHtml::image(Yii::getPathOfAlias('webroot.css') . '/bg.gif' ));
 
-        # Outputs ready PDF
-        $mPDF1->Output();
+		# Outputs ready PDF
+		$mPDF1->Output();
 
-        ////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////
 
-        # HTML2PDF has very similar syntax
-        $html2pdf = Yii::app()->ePdf->HTML2PDF();
-        $html2pdf->WriteHTML($this->renderPartial('index', array(), true));
-        $html2pdf->Output();
+		# HTML2PDF has very similar syntax
+		$html2pdf = Yii::app()->ePdf->HTML2PDF();
+		$html2pdf->WriteHTML($this->renderPartial('index', array(), true));
+		$html2pdf->Output();
 
-        ////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////
 
-        # Example from HTML2PDF wiki: Send PDF by email
-        $content_PDF = $html2pdf->Output('', EYiiPdf::OUTPUT_TO_STRING);
-        require_once(dirname(__FILE__).'/pjmail/pjmail.class.php');
-        $mail = new PJmail();
-        $mail->setAllFrom('webmaster@my_site.net', "My personal site");
-        $mail->addrecipient('mail_user@my_site.net');
-        $mail->addsubject("Example sending PDF");
-        $mail->text = "This is an example of sending a PDF file";
-        $mail->addbinattachement("my_document.pdf", $content_PDF);
-        $res = $mail->sendmail();
-    }
+		# Example from HTML2PDF wiki: Send PDF by email
+		$content_PDF = $html2pdf->Output('', EYiiPdf::OUTPUT_TO_STRING);
+		require_once(dirname(__FILE__).'/pjmail/pjmail.class.php');
+		$mail = new PJmail();
+		$mail->setAllFrom('webmaster@my_site.net', "My personal site");
+		$mail->addrecipient('mail_user@my_site.net');
+		$mail->addsubject("Example sending PDF");
+		$mail->text = "This is an example of sending a PDF file";
+		$mail->addbinattachement("my_document.pdf", $content_PDF);
+		$res = $mail->sendmail();
+	}
 ...
 ```
 
