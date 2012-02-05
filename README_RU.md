@@ -40,7 +40,7 @@ Yii-PDF Extension
         'ePdf' => array(
             'class'         => 'ext.yii-pdf.EYiiPdf',
             'params'        => array(
-                'mPDF'     => array(
+                'mpdf'     => array(
                     'librarySourcePath' => 'application.vendors.mpdf.*',
                     'constants'         => array(
                         '_MPDF_TEMP_PATH' => Yii::getPathOfAlias('application.runtime'),
@@ -87,10 +87,10 @@ Yii-PDF Extension
     public function actionIndex()
     {
         # mPDF
-        $mPDF1 = Yii::app()->ePdf->mPDF();
+        $mPDF1 = Yii::app()->ePdf->mpdf();
 
         # Вы можете с легкостью переопределить параметры по умолчанию для конструктора
-        $mPDF1 = Yii::app()->ePdf->mPDF('', 'A5');
+        $mPDF1 = Yii::app()->ePdf->mpdf('', 'A5');
 
         # render (полная страница page)
         $mPDF1->WriteHTML($this->render('index', array(), true));

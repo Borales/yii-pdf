@@ -39,7 +39,7 @@ If you do so - **you must keep the order of array items!**
 		'ePdf' => array(
 			'class'			=> 'ext.yii-pdf.EYiiPdf',
 			'params'		=> array(
-				'mPDF'	   => array(
+				'mpdf'	   => array(
 					'librarySourcePath' => 'application.vendors.mpdf.*',
 					'constants'			=> array(
 						'_MPDF_TEMP_PATH' => Yii::getPathOfAlias('application.runtime'),
@@ -86,10 +86,10 @@ If you do so - **you must keep the order of array items!**
 	public function actionIndex()
 	{
 		# mPDF
-		$mPDF1 = Yii::app()->ePdf->mPDF();
+		$mPDF1 = Yii::app()->ePdf->mpdf();
 
 		# You can easily override default constructor's params
-		$mPDF1 = Yii::app()->ePdf->mPDF('', 'A5');
+		$mPDF1 = Yii::app()->ePdf->mpdf('', 'A5');
 
 		# render (full page)
 		$mPDF1->WriteHTML($this->render('index', array(), true));

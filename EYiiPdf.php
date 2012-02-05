@@ -6,7 +6,7 @@
  * @link https://github.com/Borales/yii-pdf
  * @license http://www.opensource.org/licenses/bsd-license.php
  * @package application.extensions.yii-pdf.EYiiPdf
- * @version 0.2
+ * @version 0.2a
  */
 class EYiiPdf extends CApplicationComponent
 {
@@ -41,9 +41,9 @@ class EYiiPdf extends CApplicationComponent
     public $params = array();
 
     /**
-     * @var mPDF|null
+     * @var mpdf|null
      */
-    protected $_mPDF = null;
+    protected $_mpdf = null;
 
     /**
      * @var HTML2PDF|null
@@ -97,12 +97,12 @@ class EYiiPdf extends CApplicationComponent
     }
 
     /**
-     * @return mPDF
+     * @return mpdf
      */
-    public function mPDF()
+    public function mpdf()
     {
         $this->initLibrary(__FUNCTION__, func_get_args());
-        return $this->_mPDF;
+        return $this->_mpdf;
     }
 
     /**
