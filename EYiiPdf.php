@@ -75,7 +75,7 @@ class EYiiPdf extends CApplicationComponent
         # Merging params arrays (preserving params' indexes)
         $args = isset($this->params[$library_name]['defaultParams'])
             ? $constructorClassArgs + array_values($this->params[$library_name]['defaultParams'])
-            : array();
+            : $constructorClassArgs;
 
         $reflClass = isset($this->params[$library_name]['class']) ? $this->params[$library_name]['class'] : $library_name;
 
