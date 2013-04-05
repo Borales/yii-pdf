@@ -1,6 +1,10 @@
 Yii-PDF Change Log
 ==================
 
+### Version 0.3.2 (2013-04-05)
+
+* func_get_args() is using through a variable now (for PHP < 5.3.0)
+
 ### Version 0.3 (2012-07-07)
 
 * Fixed default constructor params [thanks to zitter]
