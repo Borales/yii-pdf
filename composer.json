@@ -12,7 +12,7 @@
 	],
 	"support": {
 		"source": "https://github.com/Borales/yii-pdf",
-		"issues": "https://github.com/Simplyii/Borales/yii-pdf?state=open"
+		"issues": "https://github.com/Borales/yii-pdf?state=open"
 	},
 	"require": {
 		"yiisoft/yii": ">=1.1.13",
