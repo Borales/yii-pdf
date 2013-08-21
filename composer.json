@@ -10,8 +10,13 @@
 			"email": "bordun.alexandr@gmail.com"
 		}
 	],
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/Borales/yii-pdf"
+		}
+	],
 	"support": {
-		"canonical": "https://github.com/Borales/yii-pdf.git",
 		"issues": "https://github.com/Borales/yii-pdf/issues?state=open",
 		"source": "https://github.com/Borales/yii-pdf"
 	},
