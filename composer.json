@@ -10,6 +10,10 @@
 			"email": "bordun.alexandr@gmail.com"
 		}
 	],
+	"support": {
+		"issues": "https://github.com/Borales/yii-pdf/issues?state=open",
+		"source": "https://github.com/Borales/yii-pdf"
+	},
 	"require": {
 		"yiisoft/yii": ">=1.1.13",
 		"mpdf/mpdf": "dev-master",
