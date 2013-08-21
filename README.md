@@ -31,6 +31,10 @@ If you want to change default params - you can set them in config file (like sho
 If you do so - **you must keep the order of array items!**
 * In your `protected/config/main.php`, add the following:
 
+### Installation (through composer)
+
+* Add to your `composer.json` file the following line `"borales/yii-pdf": "dev-master"`
+
 ```php
 <?php
 //...

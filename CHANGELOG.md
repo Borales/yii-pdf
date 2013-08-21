@@ -1,6 +1,10 @@
 Yii-PDF Change Log
 ==================
 
+### Version 0.4.0 (2013-08-21)
+
+* Added composer support
+
 ### Version 0.3.2 (2013-04-05)
 
 * func_get_args() is using through a variable now (for PHP < 5.3.0)

@@ -32,6 +32,10 @@ Yii-PDF Extension
 При изменении - **вы должны сохранить порядок элементов массива!**
 * В вашем конфигурационным файле `protected/config/main.php`, добавьте такие строчки:
 
+### Установка (через composer)
+
+* Добавить в файл `composer.json` строку `"borales/yii-pdf": "dev-master"`
+
 ```php
 <?php
 //...

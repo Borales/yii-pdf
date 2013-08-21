@@ -5,7 +5,7 @@
  * @link https://github.com/Borales/yii-pdf
  * @license http://www.opensource.org/licenses/bsd-license.php
  * @package application.extensions.yii-pdf.EYiiPdf
- * @version 0.3.2
+ * @version 0.4.0
  */
 class EYiiPdf extends CApplicationComponent
 {
