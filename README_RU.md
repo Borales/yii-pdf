@@ -1,6 +1,11 @@
 Yii-PDF Extension
 =================
 
+[![Latest Stable Version](https://poser.pugx.org/borales/yii-pdf/v/stable.svg)](https://packagist.org/packages/borales/yii-pdf)
+[![Total Downloads](https://poser.pugx.org/borales/yii-pdf/downloads.svg)](https://packagist.org/packages/borales/yii-pdf) 
+[![Latest Unstable Version](https://poser.pugx.org/borales/yii-pdf/v/unstable.svg)](https://packagist.org/packages/borales/yii-pdf) 
+[![License](https://poser.pugx.org/borales/yii-pdf/license.svg)](https://packagist.org/packages/borales/yii-pdf)
+
 Небольшое расширение для Yii Framework, которое делает "обертку" для нескольких PHP-библиотек
 (mPDF и HTML2PDF на данный момент) для конвертации HTML в PDF
 
